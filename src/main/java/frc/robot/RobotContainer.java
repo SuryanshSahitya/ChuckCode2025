@@ -19,6 +19,9 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Pivot;
+import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 import swervelib.SwerveInputStream;
@@ -36,6 +39,11 @@ public class RobotContainer
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve/neo"));
+
+
+private final Intake Intake = new Intake();
+private final Pivot Pivot = new Pivot();
+private final Shooter Shooter = new Shooter();
 
   /**
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
@@ -149,6 +157,9 @@ public class RobotContainer
       driverXbox.button(2).whileTrue(Commands.runEnd(() -> driveDirectAngleKeyboard.driveToPoseEnabled(true),
                                                      () -> driveDirectAngleKeyboard.driveToPoseEnabled(false)));
 
+      driverXbox.b().whileTrue(Intake.intakeCommand(0.5, 0.1)).whileFalse(Intake.intakeCommand(0, 0));
+      driverXbox.rightBumper().whileTrue(Pivot.pivotCommand(0.2)).whileFalse(Pivot.pivotCommand(0));
+      driverXbox.leftBumper().whileTrue(Shooter.shooterCommand(0.6)).whileFalse(Shooter.shooterCommand(0));
 //      driverXbox.b().whileTrue(
 //          drivebase.driveToPose(
 //              new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
