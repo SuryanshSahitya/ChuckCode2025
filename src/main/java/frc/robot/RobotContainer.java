@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
@@ -195,8 +196,25 @@ private final Shooter Shooter = new Shooter();
 
       driverXbox.b().whileTrue(Intake.intakeCommand(0.5, 0.1)).whileFalse(Intake.intakeCommand(0, 0));
       driverXbox.rightBumper().whileTrue(Pivot.pivotCommand(0.2)).whileFalse(Pivot.pivotCommand(0));
+      
+      //method 1
       driverXbox.leftBumper().whileTrue(Shooter.shooterCommand(0.6)).whileFalse(Shooter.shooterCommand(0));
+      
+      //method 2 (need to test)
+      driverXbox.leftBumper().whileTrue(Shooter.shooterCommand(0.6));
 
+      //method 3 (need to test)
+      driverXbox.leftBumper()
+    .whileTrue(Shooter.run(() -> Shooter.setShooterSpeed(0.6)))
+    .whileFalse(Shooter.run(() -> Shooter.setShooterSpeed(0)));
+
+    // method 4 (need to test)
+    driverXbox.leftBumper()
+    .whileTrue(Commands.run(() -> Shooter.setShooterSpeed(0.6), Shooter))
+    .whileFalse(Commands.run(() -> Shooter.setShooterSpeed(0), Shooter));
+
+    // method 5 (need to test)
+    driverXbox.leftBumper().whileTrue(new ParallelCommandGroup(Shooter.shooterCommand(0.6))).whileFalse(new ParallelCommandGroup(Shooter.shooterCommand(0)));
 
 
 
