@@ -36,9 +36,9 @@ public class Pivot extends SubsystemBase{
 
 
     pivot_left.getConfigurator().apply(talonFXConfiguration); // aplies motion magic to the motor
-    pivot_left.setNeutralMode(NeutralModeValue.Brake); // setting the motor to brake when not used by driver
+    pivot_left.setNeutralMode(NeutralModeValue.Coast); // setting the motor to brake when not used by driver
     pivot_right.getConfigurator().apply(talonFXConfiguration); // aplies motion magic to the motor
-    pivot_right.setNeutralMode(NeutralModeValue.Brake); // setting the motor to brake when not used by driver
+    pivot_right.setNeutralMode(NeutralModeValue.Coast); // setting the motor to brake when not used by driver
   
 
     }

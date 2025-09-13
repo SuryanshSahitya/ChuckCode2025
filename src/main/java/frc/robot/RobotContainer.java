@@ -50,7 +50,7 @@ private final Shooter Shooter = new Shooter();
    */
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
                                                                 () -> driverXbox.getLeftY() * -1,
-                                                                () -> driverXbox.getLeftX() * 1)
+                                                                () -> driverXbox.getLeftX() * -1)
                                                             .withControllerRotationAxis(driverXbox::getRightX)
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
@@ -156,11 +156,62 @@ private final Shooter Shooter = new Shooter();
       driverXbox.button(1).whileTrue(drivebase.sysIdDriveMotorCommand());
       driverXbox.button(2).whileTrue(Commands.runEnd(() -> driveDirectAngleKeyboard.driveToPoseEnabled(true),
                                                      () -> driveDirectAngleKeyboard.driveToPoseEnabled(false)));
+      // Resets gyro to 0, testing
+      driverXbox.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       driverXbox.b().whileTrue(Intake.intakeCommand(0.5, 0.1)).whileFalse(Intake.intakeCommand(0, 0));
       driverXbox.rightBumper().whileTrue(Pivot.pivotCommand(0.2)).whileFalse(Pivot.pivotCommand(0));
-      driverXbox.leftBumper().whileTrue(Shooter.shooterCommand(0.6)).whileFalse(Shooter.shooterCommand(0));
-//      driverXbox.b().whileTrue(
+      driverXbox.leftBumper().whileTrue(Shooter.shooter_speed(0.6)).whileFalse(Shooter.shooter_speed(0));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      //      driverXbox.b().whileTrue(
 //          drivebase.driveToPose(
 //              new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
 //                              );
