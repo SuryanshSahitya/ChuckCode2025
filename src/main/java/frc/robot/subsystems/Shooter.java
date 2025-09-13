@@ -28,35 +28,35 @@ public class Shooter extends SubsystemBase{
         shooter_right.set(shooter_speed);
     }
 
-    // public Command  shooterCommand(double shooter_speed) {
+    public Command  shooterCommand(double shooter_speed) {
         
         
-    //     return new Command() {
-    //         @Override
-    //         public void initialize() {
-    //             // Initialization code, such as resetting encoders or PID controllers
-    //         }
+        return new Command() {
+            @Override
+            public void initialize() {
+                // Initialization code, such as resetting encoders or PID controllers
+            }
     
-    //         @Override
-    //         public void execute() {
-    //             // Set the intake motors to the specified speed
-    //             shooter_left.set(shooter_speed);
-    //             shooter_right.set(shooter_speed);
+            @Override
+            public void execute() {
+                // Set the intake motors to the specified speed
+                shooter_left.set(shooter_speed);
+                shooter_right.set(shooter_speed);
                 
-    //         }
+            }
     
-    //         @Override
-    //         public void end(boolean interrupted) {
-    //             shooter_left.set(0);
-    //             shooter_left.set(0);
-    //             // Stop the motor when the command ends or is interrupted
-    //         }
+            @Override
+            public void end(boolean interrupted) {
+                shooter_left.set(0);
+                shooter_left.set(0);
+                // Stop the motor when the command ends or is interrupted
+            }
     
-    //         @Override
-    //         public boolean isFinished() {
-    //             return false;
-    //         }
-    //     };
-    // }
+            @Override
+            public boolean isFinished() {
+                return false;
+            }
+        };
+    }
 
 }

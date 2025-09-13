@@ -195,7 +195,7 @@ private final Shooter Shooter = new Shooter();
 
       driverXbox.b().whileTrue(Intake.intakeCommand(0.5, 0.1)).whileFalse(Intake.intakeCommand(0, 0));
       driverXbox.rightBumper().whileTrue(Pivot.pivotCommand(0.2)).whileFalse(Pivot.pivotCommand(0));
-      driverXbox.leftBumper().whileTrue(Shooter.shooter_speed(0.6)).whileFalse(Shooter.shooter_speed(0));
+      driverXbox.leftBumper().whileTrue(Shooter.shooterCommand(0.6)).whileFalse(Shooter.shooterCommand(0));
 
 
 
