@@ -52,7 +52,7 @@ private final Shooter Shooter = new Shooter();
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
                                                                 () -> driverXbox.getLeftY() * -1,
                                                                 () -> driverXbox.getLeftX() * -1)
-                                                            .withControllerRotationAxis(driverXbox::getRightX)
+                                                            .withControllerRotationAxis(() -> -driverXbox.getRightX())
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
                                                             .allianceRelativeControl(true);
@@ -160,76 +160,7 @@ private final Shooter Shooter = new Shooter();
       // Resets gyro to 0, testing
       driverXbox.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      driverXbox.b().whileTrue(Intake.intakeCommand(0.5, 0.1)).whileFalse(Intake.intakeCommand(0, 0));
-      driverXbox.rightBumper().whileTrue(Pivot.pivotCommand(0.2)).whileFalse(Pivot.pivotCommand(0));
-      
-      //method 1
-      driverXbox.leftBumper().whileTrue(Shooter.shooterCommand(0.6)).whileFalse(Shooter.shooterCommand(0));
-      
-      //method 2 (need to test)
-      driverXbox.leftBumper().whileTrue(Shooter.shooterCommand(0.6));
-
-      //method 3 (need to test)
-      driverXbox.leftBumper()
-    .whileTrue(Shooter.run(() -> Shooter.setShooterSpeed(0.6)))
-    .whileFalse(Shooter.run(() -> Shooter.setShooterSpeed(0)));
-
-    // method 4 (need to test)
-    driverXbox.leftBumper()
-    .whileTrue(Commands.run(() -> Shooter.setShooterSpeed(0.6), Shooter))
-    .whileFalse(Commands.run(() -> Shooter.setShooterSpeed(0), Shooter));
-
-    // method 5 (need to test)
-    driverXbox.leftBumper().whileTrue(new ParallelCommandGroup(Shooter.shooterCommand(0.6))).whileFalse(new ParallelCommandGroup(Shooter.shooterCommand(0)));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      //      driverXbox.b().whileTrue(
+//      driverXbox.b().whileTrue(
 //          drivebase.driveToPose(
 //              new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
 //                              );
@@ -253,6 +184,11 @@ private final Shooter Shooter = new Shooter();
       driverXbox.back().whileTrue(Commands.none());
       driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       driverXbox.rightBumper().onTrue(Commands.none());
+      driverXbox.leftBumper().whileTrue(Shooter.shooterCommand(0.6)).whileFalse(Shooter.shooterCommand(0));
+      driverXbox.b().whileTrue(Intake.intakeCommand(1, 1)).whileFalse(Intake.intakeCommand(0, 0));
+      //driverXbox.rightBumper().whileTrue(Pivot.pivotCommand(9.36962890625,-9.9892578125)).whileFalse(Pivot.pivotCommand(16.65576171875,-17.11083984375));
+      
+    
     }
 
   }

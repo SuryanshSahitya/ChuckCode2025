@@ -45,11 +45,11 @@ public class Pivot extends SubsystemBase{
 
     @Override
     public void periodic(){
-        SmartDashboard.putNumber("Boxpiv", pivot_left.getPosition().getValueAsDouble());  
-        SmartDashboard.putNumber("boxpivl", pivot_right.getPosition().getValueAsDouble());
+        SmartDashboard.putNumber("pivot_left (id 30)", pivot_left.getPosition().getValueAsDouble());  
+        SmartDashboard.putNumber("pivot_right (id 31)", pivot_right.getPosition().getValueAsDouble());
         
     }
-    public Command pivotCommand(double position) {
+    public Command pivotCommand(double position1, double position2) {
         return new Command() {
             @Override
             public void initialize() {
@@ -71,8 +71,8 @@ public class Pivot extends SubsystemBase{
 
 
             // Motion Magic way of doing it
-            pivot_left.setControl(m_request.withPosition(position).withFeedForward(0.15));
-            pivot_right.setControl(m_request.withPosition(-position).withFeedForward(0.15));
+            pivot_left.setControl(m_request.withPosition(position2).withFeedForward(0.15));
+            pivot_right.setControl(m_request.withPosition(position1).withFeedForward(0.15));
             //the feedforward is not required it just helps it being more personalized, like multiplying it by a constant
 
             }
